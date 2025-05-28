@@ -19,7 +19,7 @@ const routes = [
     method: 'GET',
     path: '/',
     handler: async (request, h) => {
-      const welcomeMessage = 'Welcome to our Hartono Bag APIs';
+      const welcomeMessage = 'Welcome to our MATH APIs';
       return h.response({ status: 'success', message: welcomeMessage }).code(200);
     }
   },
