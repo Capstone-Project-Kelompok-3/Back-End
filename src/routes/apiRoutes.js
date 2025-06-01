@@ -67,6 +67,39 @@ const routes = [
       pre: [authMiddleware]
     }
   },
+
+  // --------------------- MATH ---------------------
+  {
+    method: 'POST',
+    path: '/math/question',
+    handler: mathController.solveFromText,
+    options: {
+      pre: [authMiddleware],
+      validate: {
+        payload: mathSchemas.questionText,
+        failAction
+      }
+    }
+  },
+  {
+    method: 'POST',
+    path: '/math/image',
+    handler: mathController.solveFromImage,
+    options: {
+      pre: [authMiddleware],
+      payload: {
+        output: 'stream',
+        parse: true,
+        allow: 'multipart/form-data',
+        multipart: true,
+        maxBytes: 5 * 1024 * 1024, // max 5MB
+      },
+      validate: {
+        payload: mathSchemas.questionImage,
+        failAction
+      }
+    }
+  }
 ];
 
 module.exports = routes;
