@@ -2,7 +2,7 @@
 const {
   processTextQuestion,
   processImageQuestion
-} = require('../lib/services/math');
+} = require('../lib/services/unused_math');
 
 const mathController = {
   solveFromText: async (request, h) => {

@@ -25,29 +25,29 @@ const updateUser = async (user) => {
     .single();
 };
 
-const getUserByCredential = async (name, password) => {
-  const key = name.includes("@") ? "email" : "name";
+const getUserByCredential = async (nama, password) => {
+  const key = nama.includes("@") ? "email" : "name";
   return await supabase
     .from("users")
-    .select("user_id, name, email")
-    .eq(key, name)
+    .select("id_user, nama, email")
+    .eq(key, nama)
     .eq("password", password)
     .maybeSingle();
 };
 
-const getUserById = async (user_id) => {
+const getUserById = async (id_user) => {
   return await supabase
     .from("users")
-    .select("user_id, name, email, password")
-    .eq("user_id", user_id)
+    .select("id_user, nama, email, password")
+    .eq("id_user", id_user)
     .maybeSingle();
 };
 
-const deleteUserById = async (user_id) => {
+const deleteUserById = async (id_user) => {
   return await supabase
     .from("users")
     .delete()
-    .eq("user_id", user_id);
+    .eq("id_user", id_user);
 };
 
 module.exports = {

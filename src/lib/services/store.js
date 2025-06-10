@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 const supabase = require('../../config/supabaseClient'); // pastikan koneksi Supabase disiapkan di sini
 
 const saveMathProbeTxt = async({id_user, soal}) => {

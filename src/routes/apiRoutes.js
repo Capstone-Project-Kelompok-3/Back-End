@@ -1,9 +1,10 @@
-/* eslint-disable no-unused-vars */
 const storeController = require('../controllers/storeController');
 const userController = require('../controllers/userController');
+const historyController = require('../controllers/historyController');
 
 const userSchemas = require('../validations/userSchema');
 const storeSchemas = require('../validations/storeSchema');
+const historySchemas = require('../validations/historySchema');
 
 const authMiddleware = require('../lib/middleware/authMiddleware');
 
@@ -76,6 +77,26 @@ const routes = [
       validate: { payload: storeSchemas.addUser, failAction }
     }
   },
+
+  // --------------------- HISTORY ---------------------
+  {
+  method: 'GET',
+  path: '/history',
+  handler: historyController.getHistory,
+  options: {
+    pre: [{ method: authMiddleware }]
+  }
+},
+{
+  method: 'GET',
+  path: '/history/{id_soal}',
+  handler: historyController.getHistoryById,
+  options: {
+    pre: [{ method: authMiddleware }],
+    validate: { payload: historySchemas.getById, failAction }
+  }
+}
+
 ];
 
 module.exports = routes;
