@@ -74,7 +74,7 @@ const routes = [
     handler: storeController.saveSolve,
     options: {
       pre: [authMiddleware],
-      validate: { payload: storeSchemas.addUser, failAction }
+      validate: { payload: storeSchemas.storeSolve, failAction }
     }
   },
 
