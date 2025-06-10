@@ -26,7 +26,7 @@ const updateUser = async (user) => {
 };
 
 const getUserByCredential = async (nama, password) => {
-  const key = nama.includes("@") ? "email" : "name";
+  const key = nama.includes("@") ? "email" : "nama";
   return await supabase
     .from("users")
     .select("id_user, nama, email")
