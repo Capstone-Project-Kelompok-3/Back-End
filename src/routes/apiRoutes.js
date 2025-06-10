@@ -70,7 +70,7 @@ const routes = [
   // --------------------- STORES ---------------------
   {
     method: 'POST',
-    path: '/users',
+    path: '/store',
     handler: storeController.saveSolve,
     options: {
       pre: [authMiddleware],
@@ -94,7 +94,7 @@ const routes = [
     options: {
       pre: [authMiddleware],
       validate: {
-        params: historySchemas.getById // ⬅️ VALIDATE PARAMS, BUKAN PAYLOAD
+        params: historySchemas.getById 
       }
     }
   }
