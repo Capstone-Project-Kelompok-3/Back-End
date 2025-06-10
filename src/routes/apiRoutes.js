@@ -1,11 +1,9 @@
 /* eslint-disable no-unused-vars */
-const mathController = require('../controllers/mathController');
 const storeController = require('../controllers/storeController');
 const userController = require('../controllers/userController');
 
 const userSchemas = require('../validations/userSchema');
 const storeSchemas = require('../validations/storeSchema');
-const mathSchemas = require('../validations/mathSchema');
 
 const authMiddleware = require('../lib/middleware/authMiddleware');
 
@@ -68,38 +66,16 @@ const routes = [
     }
   },
 
-  // --------------------- MATH ---------------------
+  // --------------------- STORES ---------------------
   {
     method: 'POST',
-    path: '/math/question',
-    handler: mathController.solveFromText,
+    path: '/users',
+    handler: storeController.saveSolve,
     options: {
       pre: [authMiddleware],
-      validate: {
-        payload: mathSchemas.questionText,
-        failAction
-      }
+      validate: { payload: storeSchemas.addUser, failAction }
     }
   },
-  {
-    method: 'POST',
-    path: '/math/image',
-    handler: mathController.solveFromImage,
-    options: {
-      pre: [authMiddleware],
-      payload: {
-        output: 'stream',
-        parse: true,
-        allow: 'multipart/form-data',
-        multipart: true,
-        maxBytes: 5 * 1024 * 1024, // max 5MB
-      },
-      validate: {
-        payload: mathSchemas.questionImage,
-        failAction
-      }
-    }
-  }
 ];
 
 module.exports = routes;

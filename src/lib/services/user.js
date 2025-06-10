@@ -7,7 +7,6 @@ const createUser = async (user) => {
       nama: user.nama,
       email: user.email,
       password: user.password,
-      role: user.role,
     })
     .select()
     .single();
@@ -20,7 +19,6 @@ const updateUser = async (user) => {
       nama: user.nama,
       email: user.email,
       password: user.password,
-      role: user.role,
     })
     .eq("user_id", user.user_id)
     .select()
