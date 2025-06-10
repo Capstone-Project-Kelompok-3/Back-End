@@ -9,7 +9,8 @@ const saveMathProbeTxt = async({id_user, soal}) => {
         {
           id_user,
           soal,
-          waktu_input: new Date().toISOString()
+          waktu_input: new Date().toISOString(), 
+          created_at: new Date().toISOString()
         }
       ])
       .select()
@@ -23,15 +24,15 @@ const saveMathProbeTxt = async({id_user, soal}) => {
   }
 }
 
-const saveMathResult = async ({ id_soal, jawaban, langkah_penyelesaian }) => {
+const saveMathResult = async ({ id_soal, langkah_penyelesaian }) => {
   try {
     const { data, error } = await supabase
       .from('hasil_perhitungan')
       .insert([
         {
           id_soal,
-          jawaban,
-          langkah_penyelesaian
+          langkah_penyelesaian,
+          created_at: new Date().toISOString()
         }
       ])
       .select()

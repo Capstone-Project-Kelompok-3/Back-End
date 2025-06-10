@@ -13,9 +13,8 @@ const authMiddleware = async (request, h) => {
     const decoded = verifyToken(token);
 
     request.auth = {
-      id_user: decoded.user_id,
+      id_user: decoded.id_user,
       nama: decoded.name,
-      role: decoded.role,
     };
 
     return h.continue;

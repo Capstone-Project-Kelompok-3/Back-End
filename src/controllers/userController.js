@@ -24,9 +24,9 @@ const userController = {
   },
 
   updateUser: async (request, h) => {
-    const { user_id } = request.params;
+    const { id_user } = request.auth;
     const { nama, email, password} = request.payload;
-    const user = { user_id, nama, email, password };
+    const user = { id_user, nama, email, password };
 
     const { data, error } = await updateUser(user);
 
@@ -41,8 +41,8 @@ const userController = {
   },
 
   login: async (request, h) => {
-    const { name, password } = request.payload;
-    const { data: user, error } = await getUserByCredential(name, password);
+    const { nama, password } = request.payload;
+    const { data: user, error } = await getUserByCredential(nama, password);
 
     if (error || !user) {
       return h
@@ -51,16 +51,16 @@ const userController = {
     }
 
     const token = generateToken({
-      user_id: user.user_id,
-      name: user.name,
+      id_user: user.id_user,
+      nama: user.nama,
     });
 
     return h.response({ status: "success", token, user }).code(200);
   },
 
   getUserInfo: async (request, h) => {
-    const { user_id } = request.params;
-    const { data, error } = await getUserById(user_id);
+    const { id_user } = request.auth;
+    const { data, error } = await getUserById(id_user);
 
     if (error || !data) {
       return h
@@ -72,8 +72,8 @@ const userController = {
   },
 
   deleteUser: async (request, h) => {
-    const { user_id } = request.params;
-    const { error } = await deleteUserById(user_id);
+    const { id_user } = request.auth;
+    const { error } = await deleteUserById(id_user);
 
     if (error) {
       return h.response({ status: "fail", message: error.message }).code(400);
