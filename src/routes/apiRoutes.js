@@ -13,7 +13,7 @@ const failAction = (request, h, err) => {
 };
 
 const routes = [
-    // --------------------- HOMEPAGE ---------------------
+  // --------------------- HOMEPAGE ---------------------
   {
     method: 'GET',
     path: '/',
@@ -80,22 +80,24 @@ const routes = [
 
   // --------------------- HISTORY ---------------------
   {
-  method: 'GET',
-  path: '/history',
-  handler: historyController.getHistory,
-  options: {
-    pre: [{ method: authMiddleware }]
+    method: 'GET',
+    path: '/history',
+    handler: historyController.getHistory,
+    options: {
+      pre: [authMiddleware]
+    }
+  },
+  {
+    method: 'GET',
+    path: '/history/{id_soal}',
+    handler: historyController.getHistoryById,
+    options: {
+      pre: [authMiddleware],
+      validate: {
+        params: historySchemas.getById // ⬅️ VALIDATE PARAMS, BUKAN PAYLOAD
+      }
+    }
   }
-},
-{
-  method: 'GET',
-  path: '/history/{id_soal}',
-  handler: historyController.getHistoryById,
-  options: {
-    pre: [{ method: authMiddleware }],
-    validate: { payload: historySchemas.getById, failAction }
-  }
-}
 
 ];
 
