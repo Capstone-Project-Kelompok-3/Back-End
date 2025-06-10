@@ -35,14 +35,6 @@ const getUserByCredential = async (name, password) => {
     .maybeSingle();
 };
 
-const getOwnerByUserId = async (user_id) => {
-  return await supabase
-    .from("owners")
-    .select("*")
-    .eq("owner_id", user_id)
-    .maybeSingle();
-};
-
 const getUserById = async (user_id) => {
   return await supabase
     .from("users")
@@ -62,7 +54,6 @@ module.exports = {
   createUser,
   updateUser,
   getUserByCredential,
-  getOwnerByUserId,
   getUserById,
   deleteUserById,
 };
