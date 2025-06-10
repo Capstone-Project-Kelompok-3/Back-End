@@ -67,7 +67,7 @@ const getUserByCredential = async (nama, password) => {
 const getUserById = async (id_user) => {
   return await supabase
     .from("users")
-    .select("id_user, nama, email, password")
+    .select("id_user, nama, email")
     .eq("id_user", id_user)
     .maybeSingle();
 };
