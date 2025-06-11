@@ -29,7 +29,6 @@ const routes = [
     path: '/users',
     handler: userController.addUser, // plain user without roles
     options: {
-      pre: [authMiddleware],
       validate: { payload: userSchemas.addUser, failAction }
     }
   },
