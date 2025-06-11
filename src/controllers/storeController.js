@@ -1,14 +1,15 @@
 const {
   saveMathProbeTxt,
-  saveMathResult
+  saveMathResult,
+  saveHistory
 } = require("../lib/services/store");
 
 const storeController = {
   saveSolve: async (request, h) => {
-    const { soal, langkah_penyelesaian } = request.payload;
+    const { soal, langkahPenyelesaian } = request.payload;
     const { id_user } = request.auth;
 
-    if (!soal || !langkah_penyelesaian) {
+    if (!soal || !langkahPenyelesaian) {
       return h.response({ message: "Soal dan langkah penyelesaian wajib diisi~!" }).code(400);
     }
 
@@ -21,9 +22,14 @@ const storeController = {
     const id_soal = soalData.id_soal;
 
     // Simpan hasil penyelesaian~!
-    const { data: hasilData, error: hasilError } = await saveMathResult({ id_soal, langkah_penyelesaian });
+    const { data: hasilData, error: hasilError } = await saveMathResult({ id_soal, langkahPenyelesaian });
     if (hasilError) {
       return h.response({ message: "Gagal menyimpan hasil perhitungan~", error: hasilError }).code(500);
+    }
+    
+    const { data: hasilHistory, error: historyError } = await saveHistory({ id_soal, id_user });
+    if (hasilError) {
+      return h.response({ message: "Gagal menyimpan riwayat perhitungan~", error: hasilError }).code(500);
     }
 
     return h.response({

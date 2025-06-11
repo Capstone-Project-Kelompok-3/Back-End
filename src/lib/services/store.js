@@ -23,14 +23,14 @@ const saveMathProbeTxt = async({id_user, soal}) => {
   }
 }
 
-const saveMathResult = async ({ id_soal, langkah_penyelesaian }) => {
+const saveMathResult = async ({ id_soal, langkahPenyelesaian }) => {
   try {
     const { data, error } = await supabase
       .from('hasil_perhitungan')
       .insert([
         {
           id_soal,
-          langkah_penyelesaian,
+          langkah_penyelesaian: langkahPenyelesaian,
           created_at: new Date().toISOString()
         }
       ])
@@ -45,7 +45,30 @@ const saveMathResult = async ({ id_soal, langkah_penyelesaian }) => {
   }
 };
 
+const saveHistory = async ({ id_user, id_soal }) => {
+  try {
+    const { data, error } = await supabase
+      .from('riwayat_soal')
+      .insert([
+        {
+          id_soal,
+          id_user,
+          created_at: new Date().toISOString()
+        }
+      ])
+      .select()
+      .single();
+
+    if (error) throw error;
+
+    return { data };
+  } catch (error) {
+    return { error: { message: error.message } };
+  }
+}
+
 module.exports = {
   saveMathProbeTxt,
-  saveMathResult
+  saveMathResult,
+  saveHistory
 };
